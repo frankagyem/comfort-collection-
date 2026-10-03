@@ -18,18 +18,16 @@ const importData = async () => {
     await User.deleteMany();
     await Review.deleteMany();
 
-    const createdUsers = await User.insertMany([
-      {
-        name: 'Admin User',
-        email: 'comfortyanso16@gmail.com',
-        password: '0554383476@Jj',
-        isAdmin: true,
-        phone: '0554383476',
-        referralCode: 'ADMIN123',
-      },
-    ]);
+    const adminUserDoc = await User.create({
+      name: 'Admin User',
+      email: 'comfortyanso16@gmail.com',
+      password: '0554383476@Jj',
+      isAdmin: true,
+      phone: '0554383476',
+      referralCode: 'ADMIN123',
+    });
 
-    const adminUser = createdUsers[0]._id;
+    const adminUser = adminUserDoc._id;
 
     const sampleProducts = products.map((p) => {
       return { ...p, user: adminUser };
